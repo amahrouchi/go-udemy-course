@@ -19,29 +19,30 @@ type Address struct {
 	Country string `json:"country,omitempty"` // omitempty : pour ne pas afficher le pays si le champ est vice
 }
 
-func users(w http.ResponseWriter, r *http.Request) {
-	users := []User{
-		{
-			Name:     "Bob",
-			Password: "secret",
-			Email:    "bob@golang.org",
-			Address: Address{
-				Street:  "15 rue Hade",
-				City:    "Paris",
-				Country: "France",
-			},
+var users = []User{
+	{
+		Name:     "Bob",
+		Password: "secret",
+		Email:    "bob@golang.org",
+		Address: Address{
+			Street:  "15 rue Hade",
+			City:    "Paris",
+			Country: "France",
 		},
-		{
-			Name:     "Alice",
-			Password: "super_secret",
-			Email:    "alice@golang.org",
-			Address: Address{
-				Street:  "15 rue Elle",
-				City:    "Paris",
-				Country: "",
-			},
+	},
+	{
+		Name:     "Alice",
+		Password: "super_secret",
+		Email:    "alice@golang.org",
+		Address: Address{
+			Street:  "15 rue Elle",
+			City:    "Paris",
+			Country: "",
 		},
-	}
+	},
+}
+
+func usersList(w http.ResponseWriter, r *http.Request) {
 
 	// Encodage JSON
 	b, err := json.MarshalIndent(users, "", "  ")
@@ -55,7 +56,7 @@ func users(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/users", users)
+	http.HandleFunc("/users", usersList)
 
 	if err := http.ListenAndServe(":8000", nil); err != nil {
 		log.Fatalln(err)
