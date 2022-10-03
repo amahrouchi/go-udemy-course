@@ -15,6 +15,11 @@ func main() {
 	}
 	defer db.Close()
 
+	/*
+		Remarques:
+		Le struct DB contient toutes les fonctions nécessaires pour executer/preparer des rq
+	*/
+
 	// Ping vers la DB
 	err = db.Ping()
 	if err != nil {
